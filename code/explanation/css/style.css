@@ -295,6 +295,7 @@ footer a div:active{
  **/
 .scroll{
 	overflow-x: scroll;
+	overflow-y: hidden;
 }
 
 input[type=checkbox]{
@@ -378,6 +379,9 @@ label:active:after {
 	}
 	body{
 		background-color: #fff;
+	}
+	.paramter tr:before{
+		width: 0;
 	}
 	#sidebar{
 		display: none;
