@@ -10,23 +10,147 @@
 <script src="js/prism.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+<script src="js/MathEq.js" defer></script>
+<script src="js/sidebar.js" defer></script>
+
+
 <title>Code Note</title>
 </head>
 
 <body>
+<div id="sidebar-icon" class="open">
+</div>
+<div id="sidebar">
+    <div class="sidebar-container">
+        <ul class="sidebar-list">
+            <li class="main">
+                <a href="#start">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Start Program</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#paramters">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Parameters Setting</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#read">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Read EOS</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#interpolation">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">EOS Interpolation</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#dR">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Infinitesimal Radius \(dR\)</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#solver">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">TOV solver</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#save">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Save Data</div>
+                </a>
+            </li>
+            <li class="main">
+                <a href="#print">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Print Unit</div>
+                </a>
+            </li>
+            <li class="sub">
+                <a href="#Derivs">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Derivs?</div>
+                </a>
+            </li>
+            <li class="sub">
+                <a href="#RK4">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">4-stage Runge Kutta</div>
+                </a>
+            </li>
+            <li class="sub">
+                <a href="#k2eval">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Tidal Love Number \(k_2\)</div>
+                </a>
+            </li>
+            <li class="sub">
+                <a href="#CSPLIN">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Cubic Spline Interpolation</div>
+                </a>
+            </li>
+            <li class="sub">
+                <a href="#CSEVAL">
+                    <img class="icon" src="css/code.svg" alt="">
+                    <div class="code">Cubic Spline Evaluate</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <main>
 <h1>TOV solver - fortran code explaining</h1>
-<h2>main program</h2>
-<div class="section">
+<h2 class="explain">explaining</h2>
+<div class="section explain">
+    <div id='TOV'><p>
+        The Tolman–Oppenheimer–Volkoff equation is given by
+        <div class="scroll">
+        \[\frac {dP}{dr} =-\frac {GM}{r^{2}}\rho \left(1+\frac {P}{\rho c^{2}}\right)\left(1+\frac {4\pi r^{3}P}{Mc^{2}}\right)\left(1-\frac {2GM}{rc^{2}}\right)^{-1},\]
+        </div>
+        where 
+        <ul>
+            <li>\(r\) is radial coordinate;</li>
+            <li>\(c\) is speed of light;</li>
+            <li>\(G\) is gravitational constant;</li>
+            <li>\(M\) is a mass function of \(r\);</li>
+            <li>\(P\) is a pressure function of \(r\);</li>
+            <li>\(\rho\) is a density function of \(r\).</li>
+        </ul>
+
+        Here, \(M=M\left(r\right)\) is the total mass contained inside radius \(r\), as measured by the gravitational field felt by a <b>distant observer</b>. It satisfies \(M\left(0\right) = 0\) and 
+        \[\frac{dM\left(r\right)}{dr} = 4\pi r^2 \rho\left(r\right)\]
+
+        <!-- (see in <a href="https://en.wikipedia.org/wiki/Tolman%E2%80%93Oppenheimer%E2%80%93Volkoff_equation">wikipedia</a>)  -->
+
+
+    </p></div> 
+
+</div>
+
+
+
+
+
+
+
+<h2 class="main">main program</h2>
+<div class="section main">
 <!-- 1 -->
-<div><p>
+<div id="start"><p>
 start of the program
 </p></div>
 <pre><code class="language-fortran">! section 1
         program TOV_solver
 </code></pre>
 <!-- 2 -->
-<div><p>
+<div id="paramters"><p>
 parameter setting 
 <table class="paramter">
 <thead>
@@ -144,7 +268,7 @@ parameter setting
 </tr>
 <tr>
     <td>Coefficient of cubic spline interpolation of EOS </td>
-    <td>\(B_0,B_1,C_0,C_1,D_0,D_1\)</td>
+    <td>\(B_0,\)\(B_1,\)\(C_0,\)\(C_1,\)\(D_0,\)\(D_1\)</td>
     <td>\(N_{EOS}\)</td>
 </tr>
 </tbody>
@@ -161,7 +285,7 @@ parameter setting
 </code></pre>
 
 <!-- 3 -->
-<div><p>
+<div id='read'><p>
 Read the EOS, then store in array
 \[\begin{cases}
 E_{0i} = E_{1i}\\
@@ -181,8 +305,9 @@ P_{0i} = P_{1i}
 </code></pre>
 
 <!-- 4 -->
-<div><p>
+<div id='interpolation'><p>
 Using cubic spline interpolation in <code class="language-fortran">SUBROUTINE CSPLIN</code> to calculate two spline \(S_1\) and \(S_2\), in the form of polynomial
+<div class="scroll">
 \[\begin{aligned}
 S_1\left(P\right) &= 
 	E_{0i} 
@@ -197,6 +322,8 @@ S_2\left(E\right) &=
 	+ D_{0i}\cdot\left(E-E_{0i}\right)^3
 \\
 \end{aligned}\]
+    
+</div>
 where \(i=1,2,\ldots,N_{EOS}\).
 </p></div>
 <pre><code class="language-fortran">! section 4
@@ -205,7 +332,7 @@ where \(i=1,2,\ldots,N_{EOS}\).
 </code></pre>
 
 <!-- 5 -->
-<div><p>
+<div id='dR'><p>
 setting the infinitesimal radius \(dR=5\times 10^{-6}\)
 </p></div>
 <pre><code class="language-fortran">! section 5
@@ -214,7 +341,7 @@ setting the infinitesimal radius \(dR=5\times 10^{-6}\)
 
 
 <!-- 6 -->
-<div><p>
+<div id='solver'><p>
 Solve extended TOV equation for \(M_s\), \(R_s\), and \(\lambda_s\), by 4-stage Runge Kutta method in <code class="language-fortran">SUBROUTINE RK4</code>
 </p></div>
 <pre><code class="language-fortran">! section 6
@@ -262,7 +389,7 @@ Solve extended TOV equation for \(M_s\), \(R_s\), and \(\lambda_s\), by 4-stage 
 
 
 <!-- 7 -->
-<div><p>
+<div id='save'><p>
 save the result
 </p></div>
 <pre><code class="language-fortran">! section 7
@@ -280,7 +407,7 @@ save the result
 </code></pre>
 
 <!-- 8 -->
-<div><p>
+<div id='print'><p>
 print the unit and end the program
 </p></div>
 <pre><code class="language-fortran">! section 8
@@ -298,20 +425,42 @@ print the unit and end the program
 
 
 </div>
-<br>
-<br>
-<br>
 
 
 
 
 
-<h2>sub routuine</h2>
-<div class="section">
+
+<h2 class="sub">sub routuine</h2>
+<div class="section sub">
 <!-- Derivs -->
-<div><p>
+<div id='Derivs'><p>
 Calculate Derivs???
 
+<br>
+<b>translate in to math</b>
+\(Y\) and \(\text{DYDX}\) are both array 
+\[Y = Y_i,\quad i=1,2,3\]
+and 
+\[\text{DYDX} = Y_i,\quad i=1,2,3\]
+then
+<div class="scroll">
+\[\begin{aligned}
+F &= \frac{X-\left(\text{EOS}-Y_1\right)X^3}{X-2Y_2}
+\\[2ex]
+Q &= \left(5\cdot EOS+9\cdot Y_1+\frac{EOS+Y_1}{dPdE}-\frac{6}{X^{2}}\right)\cdot\frac{X}{X-2\cdot Y_2}-4\cdot\left(\frac{\frac{Y_2+Y_1\cdot X^{3}}{X}}{X-2\cdot Y_2}\right)^{2}
+\end{aligned}\]
+</div>
+and
+<div class="scroll">
+\[\begin{aligned}
+\text{DYDX}_1 &= -\left(EOS+Y_{1}\right)\cdot\frac{\frac{Y_{2}+Y_{1}\cdot X^{3}}{X}}{X-2Y_{2}}
+\\[2ex]
+\text{DYDX}_2 &= \text{EOS}\cdot X^2
+\\[2ex]
+\text{DYDX}_3 &= -\frac{Y_{3}^{2}+F\cdot Y_{3}+Q\cdot X^{2}}{X}
+\end{aligned}\]
+</div>
 </p></div>
 <pre><code class="language-fortran">
 SUBROUTINE DERIVS (X, Y, DYDX)
@@ -343,7 +492,7 @@ SUBROUTINE DERIVS (X, Y, DYDX)
 
 
 <!-- RK4 -->
-<div><p>
+<div id='RK4'><p>
 4-stage Runge Kutta method
 </p></div>
 <pre><code class="language-fortran">
@@ -386,22 +535,18 @@ SUBROUTINE DERIVS (X, Y, DYDX)
 
 
 <!-- k2eval -->
-<div><p>
+<div id='k2eval'><p>
 Calculate the tidal Love number \(k_2\), which is given by following expression.
-
-</p></div>
-<div class='muti-line none'>
-\[
-\begin{aligned}
+<div class='scroll muti-line none'>
+\[\begin{aligned}
 k_2= & \frac{1}{20}\left(\frac{R_s}{R}\right)^5\left(1-\frac{R_s}{R}\right)^2\left[2-y_R+\left(y_R-1\right) \frac{R_s}{R}\right] \\
 & \times\left\{\frac { R _ { s } } { R } \left(6-3 y_R+\frac{3 R_s}{2 R}\left(5 y_R-8\right)+\frac{1}{4}\left(\frac{R_s}{R}\right)^2\right.\right. \\
 & \left.\times\left[26-22 y_R+\left(\frac{R_s}{R}\right)\left(3 y_R-2\right)+\left(\frac{R_s}{R}\right)^2\left(1+y_R\right)\right]\right) \\
 & +3\left(1-\frac{R_s}{R}\right)^2\left[2-y_R+\left(y_R-1\right) \frac{R_s}{R}\right] \\
 & \left.\times \ln \left(1-\frac{R_s}{R}\right)\right\}^{-1}
-\end{aligned}
-\]
+\end{aligned}\]
 </div>
-<div class='scroll-wrapper one-line'>
+<div class='scroll one-line'>
 \[
 \begin{aligned}
 k_2= 
@@ -415,15 +560,21 @@ k_2=
 </div>
 <br>
 LaTeX type (one-line/mutiple-lines)<input type="checkbox" id="switch"/><label for="switch" onclick="Switch()"></label>
-<script>
-var longmath = document.querySelectorAll('.muti-line,.one-line');
-function Switch(){
-	console.log('switch');
-	longmath.forEach((e)=>{
-		e.classList.toggle("none");
-	})
-}
-</script>
+
+<br>
+In the code, it is approximated by
+\[k_2=\frac{0.05\cdot C^5\cdot F}{C\cdot D+3\cdot F\cdot \ln\left(1-C\right)},\]
+where
+<div class="scroll">
+\[\begin{aligned}
+C &= \frac{2.954M}{R}\\[2ex]
+S &= 26-22y_R+\left(3y_R-2\right)C+\left(1+y_R\right)C^2\\[2ex]
+D &= 6-3y_R+1.5\left(5y_R-8\right)C + 0.25 S C^2\\[2ex]
+F &= \left(1-C\right)^2\left(2-y_R+\left(y_R-1\right)C\right)
+\end{aligned},\]
+</div>
+here \(C\) is <code class="language-fortran">RsR</code>, \(S\) is <code class="language-fortran">square</code>, \(D\) is <code class="language-fortran">round</code>, \(F\) is <code class="language-fortran">factor</code>.
+</p></div>
 <pre><code class="language-fortran">
         SUBROUTINE k2eval (R, M, YR, k2)
 
@@ -452,7 +603,7 @@ function Switch(){
 
 
 <!-- CSPLIN -->
-<div><p>
+<div id='CSPLIN'><p>
 Calculat cubic spline interpolation
 </p></div>
 <pre><code class="language-fortran">! section n
@@ -578,11 +729,11 @@ C
 </code></pre>
 
 <!-- CSEVAL -->
-<div><p>
+<div id='CSEVAL'><p>
 CSEVAL
 </p></div>
 <pre><code class="language-fortran">
- function CSEVAL (N, U, IDERIV, X, Y, B, C, D)
+        function CSEVAL (N, U, IDERIV, X, Y, B, C, D)
         integer N, IDERIV
         double precision U, X(N), Y(N), B(N), C(N), D(N), CSEVAL
 C
@@ -662,7 +813,7 @@ C=======================================================================
 <hr>
 <footer>
 	<center>
-		<a href="../TOV_solver_note.f" target="_blank">
+		<a href="./TOV_solver_note.f" target="_blank">
 			<div>
 				view the source code
 			</div>

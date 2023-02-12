@@ -1,5 +1,16 @@
+/**
+ * ============================
+ * === GLobal setting =========
+ * ============================
+ **/
+
+*{
+	position: relative;
+	box-sizing: border-box;
+}
+
 body{
-	background-color: #333;
+	background-color: #222;
 }
 main{
 	margin: 0px 10%;
@@ -16,15 +27,161 @@ p{
 	margin: 0;
 	padding: 10px;
 }
-/* ------------ */
-.language-fortran{
-	font-size: 12pt !important;
+a{
+	color: blue;
+	text-decoration: none;
+}
+a:hover{
+	color: blue;
+	text-shadow: 0 0 1px #a3a6ff;
+}
+a:visited{
+	color: blue;
 }
 
+/**
+ * ============================
+ * === sidebar setting ========
+ * ============================
+ **/
+
+#sidebar-icon{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	padding: 5px;
+	margin: 10px;
+/*	box-shadow: 0 0 1px #000 inset;*/
+}
+.open:after{
+	content: url('sidebar.svg');
+}
+
+.close:after{
+	content: url('close.svg');
+}
+
+
+
+
+
+#sidebar{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 95vh;
+
+	width: 50px;
+	background-color: rgba(50,50,50,0.7);
+	z-index: 10;
+	transition: 0.3s;
+	padding: 5px;
+	margin-right: 6px;
+	overflow: hidden;
+	border-radius: 0px 10px 10px 0px;
+}
+
+#sidebar:hover{
+	width: 300px;
+}
+
+
+#sidebar a{
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;
+	width: 1000px;
+	overflow-x: hidden;
+}
+
+
+
+.sidebar-container{
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.sidebar-list{
+	padding: 0;
+	margin-top: 10px;
+	padding-left: 0px;
+	list-style: none;
+	overflow-y: scroll;
+}
+.sidebar-list li{
+	display: block;
+	border-radius: 5px;
+	border: solid 1px #bbb;
+	padding: 5px;
+	height: 39px;
+	box-shadow: 0px 0px 5px #ddd inset;
+	margin-bottom: 5px;
+	overflow: hidden;
+}
+
+.sidebar-list li:before{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,0.4);
+	width: 0;
+	height: 100%;
+	transition: 0.3s;
+	z-index: 0;
+}
+
+.sidebar-list li:hover{
+	box-shadow: 0px 0px 5px #ddd inset,0px 0px 3px #ddd;
+}
+.sidebar-list li:hover:before{
+	width: 300px;
+}
+
+
+.sidebar-list .icon{
+	vertical-align: top;
+	height: 19pt;
+	padding: 3px;
+	margin-bottom: 2px;
+}
+.sidebar-list .code{
+	display: inline-block;
+  font-size: 12pt;
+  margin-top: 4px;
+}
+
+.sidebar-list .main{
+	box-shadow: 0px 0px 5px #F55F5F inset;
+}
+
+.sidebar-list .main:hover{
+	box-shadow: 0px 0px 5px #F55F5F inset,0px 0px 3px #F55F5F;
+}
+.sidebar-list .sub{
+	box-shadow: 0px 0px 5px #5F81F5 inset;
+}
+.sidebar-list .sub:hover{
+	box-shadow: 0px 0px 5px #5F81F5 inset,0px 0px 3px #5F81F5;
+}
+
+/**
+ * ============================
+ * === Note setting ===========
+ * ============================
+ **/
+.language-fortran{
+/*	font-size: 12pt !important;*/
+}
 pre .language-fortran{
-	font-size: 12pt !important;
+/*	font-size: 12pt !important;*/
 }
 h1{
+	padding: 30px 10px;
 	text-align: center;
 }
 h2{
@@ -36,25 +193,32 @@ h2{
 }
 .section{
 	padding-left: 10px;
+	padding-bottom: 20px;
 	margin-left: 10px;
+	margin-bottom: 50px;
 	border-left: 3px solid #ddd;
 }
-h2:nth-of-type(1){background-color: #F55F5F;}
-.section:nth-of-type(1){border-left: 3px solid #F55F5F;}
 
-h2:nth-of-type(2){background-color: #5F81F5;}
-.section:nth-of-type(2){border-left: 3px solid #5F81F5;}
+h2.explain{background-color: #bbb;}
+.section.explain{border-left: 3px solid #bbb;}
 
-h2:nth-of-type(3){background-color: #60F868;}
-.section:nth-of-type(3){border-left: 3px solid #60F868;}
 
-h2:nth-of-type(3){background-color: #CC60F8;}
-.section:nth-of-type(3){border-left: 3px solid #CC60F8;}
+h2.main{background-color: #F55F5F;}
+.section.main{border-left: 3px solid #F55F5F;}
 
+h2.sub{background-color: #5F81F5;}
+.section.sub{border-left: 3px solid #5F81F5;}
+
+h2.subsub{background-color: #60F868;}
+.section.subsub{border-left: 3px solid #60F868;}
+
+h2.subsubsub{background-color: #CC60F8;}
+.section.subsubsub{border-left: 3px solid #CC60F8;}
+
+main li{
+	padding: 5px;
+}
 /* ------------ */
-/*div{
-	font-family: Times;
-}*/
 footer{
 /*	min-height: 150px;*/
 }
@@ -84,7 +248,11 @@ footer a div:active{
 	transform: translate(0px,0px);
 	box-shadow: 1px 1px 5px #fff inset, 2px 2px 3px #bbb;
 }
-/* ------------ */
+/**
+ * ============================
+ * === Table component ===
+ * ============================
+ **/
 .paramter{
 /*	display: block;*/
 	border: 1px solid #ccc;
@@ -100,8 +268,32 @@ footer a div:active{
 .paramter tr {
   border-bottom: 0.5px solid #ddd;
 }
-/* ------------- */
-.scroll-wrapper{
+
+.paramter tr:hover{
+}
+
+.paramter tr:before{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	opacity: 0.4;
+	transition:  0.3s;
+}
+
+.paramter tr:hover:before{
+	background-color: #ccc;
+}
+/**
+ * ============================
+ * === mathematical component =
+ * ============================
+ **/
+.scroll{
 	overflow-x: scroll;
 }
 
@@ -149,17 +341,61 @@ label:active:after {
 }
 
 
-/* ------------- */
+/**
+ * ============================
+ * === functional component ===
+ * ============================
+ **/
 .none{
 	display: none;
 	/*height: 0;
 	overflow: hidden;
 	transition: 3s;*/
 }
-
-/* ------------- */
+.show{
+	display: block;
+}
+/**
+ * ============================
+ * === different size =========
+ * ============================
+ **/
 @media screen and (max-width: 900px){
+	main div:not(code){
+		font-size: 10pt;
+	}
+	h1{
+		font-size: 15pt;
+	}
+	h2{
+		font-size: 13pt;
+	}
+	pre .language-fortran{
+		font-size: 10pt;
+	}
 	main{
 		margin: 0;
+	}
+	body{
+		background-color: #fff;
+	}
+	#sidebar{
+		display: none;
+		width: 100%;
+		background-color: rgba(0,0,0,0.9);
+		height: 100%;
+	}
+	#sidebar:hover{
+		width: 100%;
+	}
+	.sidebar-container{
+		padding-top: 40px;
+		height: 100%;
+	}
+	.sidebar-list li:hover:before{
+		width: 100%;
+	}
+	#sidebar-icon{
+		display: block;
 	}
 }
