@@ -264,14 +264,12 @@ footer a div:active{
 }
 .paramter td {
   padding: 5px 15px;
+  z-index: 50;
 }
 .paramter tr {
   border-bottom: 0.5px solid #ddd;
+  z-index: 50;
 }
-
-.paramter tr:hover{
-}
-
 .paramter tr:before{
 	content: '';
 	display: block;
@@ -283,6 +281,7 @@ footer a div:active{
 	background-color: #fff;
 	opacity: 0.4;
 	transition:  0.3s;
+	z-index: 0;
 }
 
 .paramter tr:hover:before{
